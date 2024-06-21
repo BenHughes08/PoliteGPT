@@ -62,7 +62,7 @@ function handleKeydown(event) {
         if (!confirmed) {
             event.preventDefault();
             console.log("Form submission prevented.");
-            window.location.reload;
+            location.reload();
         }
     }
 }
