@@ -1,13 +1,6 @@
-document.getElementById('changeColor').addEventListener('click', () => {
-    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-      chrome.scripting.executeScript({
-        target: { tabId: tabs[0].id },
-        function: changeBackgroundColor
-      });
-    });
+document.addEventListener('DOMContentLoaded', function () {
+  var button = document.getElementById('myButton');
+  button.addEventListener('click', function () {
+    alert('Button clicked!');
   });
-  
-  function changeBackgroundColor() {
-    document.body.style.backgroundColor = "lightblue";
-  }
-  
+});

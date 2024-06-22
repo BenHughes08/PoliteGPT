@@ -1,22 +1,18 @@
 {
-    "manifest_version": 3,
-    "name": "Change Background Color",
-    "version": "1.0",
-    "description": "Changes the background color of the current page",
-    "permissions": [
-      "activeTab",
-      "scripting"
-    ],
-    "background": {
-      "service_worker": "background.js"
-    },
-    "action": {
-      "default_popup": "popup.html",
-      "default_icon": {
-        "16": "icons/icon16.png",
-        "48": "icons/icon48.png",
-        "128": "icons/icon128.png"
-      }
+  "manifest_version": 3,
+  "name": "My First Extension",
+  "version": "1.0",
+  "description": "A simple Chrome extension example",
+  "permissions": ["storage", "activeTab", "scripting"],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/16.png",
+      "48": "icons/48.png",
+      "128": "icons/128.png"
     }
+  },
+  "background": {
+    "service_worker": "background.js"
   }
-  
+}
