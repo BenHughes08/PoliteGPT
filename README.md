@@ -14,3 +14,5 @@ Click "Load Temporary Add-on" and select the manifest.json file in your extensio
 Will be releasing soon
 
 ## Future updates coming to PoliteGPT
+Meter on how nice you have been
+Different shades of grass depending on meter
