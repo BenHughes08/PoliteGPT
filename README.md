@@ -15,4 +15,6 @@ Will be releasing soon
 
 ## Future updates coming to PoliteGPT
 Meter on how nice you have been
+<div>
 Different shades of grass depending on meter
+</div>
