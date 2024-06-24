@@ -14,6 +14,7 @@ const realTextarea = document.getElementById('prompt-textarea');
 if (realTextarea) {
   const proxyTextarea = realTextarea.cloneNode(true);
   proxyTextarea.id = 'proxy-textarea';
+  proxyTextarea.style.width = 'calc(100% - 10px)'; // Adjust the width slightly
   copyStyles(realTextarea, proxyTextarea);
   realTextarea.style.display = 'none';
   realTextarea.parentNode.insertBefore(proxyTextarea, realTextarea);
@@ -58,24 +59,12 @@ if (realTextarea) {
       });
       realTextarea.dispatchEvent(enterEvent);
 
-      // Clear the proxy and real textareas and reset button color after submission
-      setTimeout(() => {
-        proxyTextarea.value = '';
-        realTextarea.value = '';
-        const sendButton = document.querySelector('[data-testid="fruitjuice-send-button"]');
-        if (sendButton) {
-          sendButton.style.backgroundColor = '';
-        }
-        updateButtonState();
-      }, 100);
+      // Reset textareas
+      proxyTextarea.value = '';
+      realTextarea.value = '';
+      updateButtonState();
     }
   }
-
-  // Adjust the proxy textarea height based on content
-  proxyTextarea.addEventListener('input', function() {
-    this.style.height = 'auto';
-    this.style.height = this.scrollHeight + 'px';
-  });
 
   // Intercept form submission
   document.addEventListener('submit', function(event) {
@@ -87,6 +76,10 @@ if (realTextarea) {
   // Listen for input changes in proxyTextarea
   proxyTextarea.addEventListener('input', function() {
     updateButtonState();
+
+    // Adjust the height of the proxy textarea
+    proxyTextarea.style.height = 'auto';
+    proxyTextarea.style.height = `${proxyTextarea.scrollHeight}px`;
   });
 
   // Listen for Enter key press in proxyTextarea
