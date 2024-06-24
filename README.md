@@ -10,8 +10,10 @@ Click "This Firefox".
 Click "Load Temporary Add-on" and select the manifest.json file in your extension directory.
 
 ### Chrome
-**NOT OUT YET**.
-Will be releasing soon
+Open Chrome and go to chrome://extensions/.
+Turn on Developer mode if it’s not already enabled.
+Click the “Load unpacked” button and select your extension’s folder.
+
 
 ## Future updates coming to PoliteGPT
 Meter on how nice you have been
