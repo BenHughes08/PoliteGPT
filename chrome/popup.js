@@ -1,7 +1,12 @@
-document.getElementById('changeColor').addEventListener('click', () => {
-  browser.tabs.query({ active: true, currentWindow: true }).then((tabs) => {
-    browser.tabs.executeScript(tabs[0].id, {
-      code: 'document.body.style.backgroundColor = "lightblue";'
+document.addEventListener('DOMContentLoaded', function() {
+  document.getElementById('changeColor').addEventListener('click', function() {
+    chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
+      chrome.scripting.executeScript({
+        target: { tabId: tabs[0].id },
+        func: function() {
+          document.body.style.backgroundColor = 'lightblue';
+        }
+      });
     });
   });
 });
