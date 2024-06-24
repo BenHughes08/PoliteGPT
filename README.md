@@ -18,5 +18,5 @@ Click the “Load unpacked” button and select your extension’s folder.
 ## Future updates coming to PoliteGPT
 Meter on how nice you have been
 <div>
-Different shades of grass depending on meter testing testing
+Different shades of grass depending on meter
 </div>
