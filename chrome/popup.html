@@ -1,19 +1,43 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>My First Extension</title>
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-      }
-      button {
-        margin: 10px;
-      }
-    </style>
-  </head>
-  <body>
-    <h1>Hello, World!</h1>
-    <button id="myButton">Click me!</button>
-    <script src="popup.js"></script>
-  </body>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PoliteGPT Extension</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: lightblue;
+      text-align: center;
+      font-family: sans-serif;
+    }
+
+    main {
+      padding: 2rem;
+    }
+
+    footer {
+      height: 90px;
+      width: 100%;
+      background-image: url("icons/image.png");
+      background-size: contain;
+      background-position: bottom;
+      background-repeat: no-repeat;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>PoliteGPT</h1>
+    <p>Created by Ben</p>
+    <span>(you'll thank me later)</span>
+  </main>
+  <footer></footer>
+  <script src="popup.js"></script>
+</body>
 </html>
