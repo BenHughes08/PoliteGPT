@@ -1,81 +1,83 @@
 console.log('Content script loaded');
-console.log('Current URL:', window.location.href);
-
-let proxyTextarea; // Variable to hold the proxy textarea
-let realTextarea;  // Variable to hold the real textarea
-let sendButton;    // Variable to hold the send button
-
-// Function to copy styles from one element to another
-function copyStyles(source, target) {
-  const computedStyle = window.getComputedStyle(source);
-  for (let key of computedStyle) {
-    target.style[key] = computedStyle[key];
-  }
-}
 
 // Function to update button state and handle sending message
 function updateButtonState() {
-  const value = proxyTextarea.value.toLowerCase().trim();
-
-  if (sendButton) {
+  console.log('updateButtonState called');
+  const sendButton = document.querySelector('[data-testid="fruitjuice-send-button"]');
+  const proxyTextarea = document.getElementById('proxy-textarea');
+  
+  if (sendButton && proxyTextarea) {
+    console.log('sendButton and proxyTextarea found');
+    const value = proxyTextarea.value.toLowerCase().trim();
+    
     // Enable/disable button based on textarea content
     if (value.length === 0 || (!value.includes('please') && !value.includes('thank you'))) {
       sendButton.disabled = true;
       sendButton.style.backgroundColor = 'red';
+      console.log('sendButton disabled');
     } else {
       sendButton.disabled = false;
       sendButton.style.backgroundColor = 'green';
+      console.log('sendButton enabled');
     }
+  } else {
+    console.log('sendButton or proxyTextarea not found');
   }
 }
 
 // Function to handle form submission validation and sending
 function validateAndSend(event) {
-  event.preventDefault(); // Prevent default form submission
-  const value = proxyTextarea.value.toLowerCase().trim();
-
-  if (value.length === 0 || (!value.includes('please') && !value.includes('thank you'))) {
-    console.log('Please include "please" or "thank you" in your prompt.');
-    return;
+  console.log('validateAndSend called');
+  const proxyTextarea = document.getElementById('proxy-textarea');
+  
+  if (proxyTextarea) {
+    const value = proxyTextarea.value.toLowerCase().trim();
+    
+    if (value.length === 0 || (!value.includes('please') && !value.includes('thank you'))) {
+      event.preventDefault(); // Prevent default form submission
+      console.log('Please include "please" or "thank you" in your prompt.');
+    } else {
+      console.log('Valid message');
+      // Trigger sending logic here (adjust as per your extension's functionality)
+      proxyTextarea.value = ''; // Reset proxy textarea
+      updateButtonState(); // Update button state after sending
+    }
+  } else {
+    console.log('proxyTextarea not found');
   }
+}
 
-  // Copy content from proxyTextarea to realTextarea and trigger enter event
-  realTextarea.value = proxyTextarea.value;
-
-  const inputEvent = new Event('input', { bubbles: true });
-  realTextarea.dispatchEvent(inputEvent);
-
-  const enterEvent = new KeyboardEvent('keydown', {
-    bubbles: true,
-    cancelable: true,
-    key: 'Enter',
-    code: 'Enter',
-    keyCode: 13
+// Function to create proxy textarea and initialize
+function initialize() {
+  console.log('initialize called');
+  const observer = new MutationObserver(() => {
+    console.log('MutationObserver callback');
+    updateButtonState(); // Update button state on dynamic content load
   });
-  realTextarea.dispatchEvent(enterEvent);
 
-  // Reset proxy textarea and button after submission
-  proxyTextarea.value = '';
-  sendButton.style.backgroundColor = '';
-  updateButtonState();
-  // Reset the height of the proxy textarea
-  proxyTextarea.style.height = 'auto';
-  proxyTextarea.style.height = '34px'; // Set to original height
+  observer.observe(document.body, { childList: true, subtree: true });
+
+  // Initial setup
+  createProxyTextarea(); // Create proxy textarea on initial load
+  updateButtonState(); // Update button state on initial load
 }
 
 // Create a proxy textarea to hold the user input temporarily
 function createProxyTextarea() {
-  realTextarea = document.getElementById('prompt-textarea');
+  console.log('createProxyTextarea called');
+  const realTextarea = document.getElementById('prompt-textarea');
+  
   if (realTextarea) {
-    proxyTextarea = realTextarea.cloneNode(true);
+    console.log('realTextarea found');
+    const proxyTextarea = realTextarea.cloneNode(true);
     proxyTextarea.id = 'proxy-textarea';
     copyStyles(realTextarea, proxyTextarea);
     realTextarea.style.display = 'none';
     realTextarea.parentNode.insertBefore(proxyTextarea, realTextarea);
-
-    // Match width of realTextarea
-    proxyTextarea.style.width = `${realTextarea.offsetWidth}px`;
-
+    
+    // Adjust width to avoid overlapping with send button
+    proxyTextarea.style.width = 'calc(100% - 20px)';
+    
     // Listen for input changes in proxyTextarea
     proxyTextarea.addEventListener('input', function () {
       updateButtonState();
@@ -83,40 +85,30 @@ function createProxyTextarea() {
       proxyTextarea.style.height = 'auto';
       proxyTextarea.style.height = `${proxyTextarea.scrollHeight}px`;
     });
-
-    // Find and assign send button
-    sendButton = document.querySelector('[data-testid="fruitjuice-send-button"]');
-    if (sendButton) {
-      sendButton.addEventListener('click', validateAndSend);
-    }
-
+    
+    // Listen for form submission
+    document.addEventListener('submit', function (event) {
+      if (event.target && event.target.id === 'prompt-form') {
+        validateAndSend(event);
+      }
+    });
+    
     return proxyTextarea;
+  } else {
+    console.log('realTextarea not found');
   }
 }
 
-// Function to reload the page
-function reloadPage() {
-  setTimeout(() => {
-    window.location.reload();
-  }, 250);
-}
-
-// Function to initialize the script
-function initialize() {
-  if (!proxyTextarea) {
-    createProxyTextarea();
+// Utility function to copy styles from one element to another
+function copyStyles(source, target) {
+  console.log('copyStyles called');
+  const computedStyle = window.getComputedStyle(source);
+  for (let key of computedStyle) {
+    target.style[key] = computedStyle[key];
   }
-  updateButtonState();
-
-  // Observe changes in the page's title to detect URL changes
-  const titleObserver = new MutationObserver(() => {
-    const newURL = window.location.href;
-    console.log('Page URL changed, reloading script...');
-    reloadPage();
-  });
-  
-  titleObserver.observe(document.querySelector('title'), { subtree: true, characterData: true, childList: true });
 }
 
-// Ensure initialization is called on DOMContentLoaded
-document.addEventListener('DOMContentLoaded', initialize);
+document.addEventListener('DOMContentLoaded', () => {
+  console.log('DOMContentLoaded event');
+  initialize(); // Ensure initialization is called on script load
+});

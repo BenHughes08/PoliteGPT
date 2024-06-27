@@ -3,7 +3,13 @@
   "name": "PoliteGPT Extension",
   "version": "1.0",
   "description": "Enhance interactions with PoliteGPT.",
-  "permissions": ["storage", "activeTab", "scripting"],
+  "permissions": [
+    "storage",
+    "activeTab",
+    "scripting",
+    "https://cdn.oaistatic.com/",
+    "https://r.bing.com/"
+  ],
   "action": {
     "default_popup": "popup.html",
     "default_icon": {
