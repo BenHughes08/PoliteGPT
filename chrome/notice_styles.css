@@ -1,0 +1,22 @@
+/* notice_styles.css */
+#politegpt-notice.pgp-notice {
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  z-index: 999999;
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  font-size: 13px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.18);
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 220ms ease, transform 220ms ease;
+  pointer-events: none;
+  background: #fff;
+  color: #333;
+  border: 1px solid rgba(0,0,0,0.06);
+}
+#politegpt-notice.pgp-notice.show { opacity: 1; transform: translateY(0); pointer-events: auto; }
+#politegpt-notice.pgp-notice.pgp-notice-ok { background: #e9fff3; color: #0a6b30; border-color: rgba(10,107,48,0.08); }
+#politegpt-notice.pgp-notice.pgp-notice-error { background: #fff0f0; color: #7a0b12; border-color: rgba(122,11,18,0.06); }

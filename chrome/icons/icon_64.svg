@@ -1,0 +1,16 @@
+<!-- icon.svg: friendly speech-bubble mascot (save as icon.svg) -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">
+  <defs>
+    <linearGradient id="g1" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#6CCAFF"></stop>
+      <stop offset="1" stop-color="#7BE28C"></stop>
+    </linearGradient>
+  </defs>
+  <rect width="128" height="128" rx="20" fill="#f5fbff"></rect>
+  <path d="M20 32 Q20 18 36 18 L92 18 Q108 18 108 32 L108 86 Q108 100 92 100 L56 100 L44 114 Q40 118 34 114 L28 108 Q22 102 20 94 Z" fill="url(#g1)" stroke="#2b9bd8" stroke-width="2"></path>
+  <circle cx="48" cy="56" r="6" fill="#fff"></circle>
+  <circle cx="80" cy="56" r="6" fill="#fff"></circle>
+  <circle cx="48" cy="56" r="2.4" fill="#063D46"></circle>
+  <circle cx="80" cy="56" r="2.4" fill="#063D46"></circle>
+  <path d="M46 72 Q64 84 82 72" fill="none" stroke="#063D46" stroke-linecap="round" stroke-width="3"></path>
+</svg>

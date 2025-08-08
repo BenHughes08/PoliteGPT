@@ -1,40 +1,38 @@
 {
   "manifest_version": 3,
-  "name": "PoliteGPT Extension",
-  "version": "1.0",
-  "description": "Enhance interactions with PoliteGPT.",
-  "permissions": [
-    "storage",
-    "activeTab",
-    "scripting",
-    "https://cdn.oaistatic.com/",
-    "https://r.bing.com/"
-  ],
+  "name": "PoliteGPT",
+  "version": "1.3",
+  "description": "Blocks or allows ChatGPT messages based on a politeness meter. Includes a friendly popup and logs.",
+  "icons": {
+    "16": "icons/icon_16.png",
+    "48": "icons/icon_48.png",
+    "128": "icons/icon_128.png"
+  },
   "action": {
+    "default_title": "PoliteGPT",
     "default_popup": "popup.html",
     "default_icon": {
-      "16": "icons/16.png",
-      "48": "icons/48.png",
-      "128": "icons/128.png"
+      "16": "icons/icon_16.png",
+      "48": "icons/icon_48.png",
+      "128": "icons/icon_128.png"
     }
   },
-  "icons": {
-    "16": "icons/16.png",
-    "48": "icons/48.png",
-    "128": "icons/128.png"
-  },
+  "permissions": [
+    "storage",
+    "activeTab"
+  ],
+  "host_permissions": [
+    "https://chat.openai.com/*"
+  ],
   "background": {
     "service_worker": "background.js"
   },
   "content_scripts": [
     {
-      "matches": [
-        "https://chat.openai.com/*",
-        "https://chatgpt.com/*",
-        "https://chat.openai.com/c/*",
-        "https://chatgpt.com/c/*"
-      ],
-      "js": ["content.js"]
+      "matches": ["https://chatgpt.com/*"],
+      "js": ["content_script.js"],
+      "css": ["notice_styles.css"],
+      "run_at": "document_end"
     }
   ]
 }
